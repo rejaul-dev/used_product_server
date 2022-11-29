@@ -44,6 +44,7 @@ async function run() {
       .db("resellUsedLaptop")
       .collection("products");
     const usersCollection = client.db("resellUsedLaptop").collection("users");
+    const bookingsCollection = client.db("resellUsedLaptop").collection("bookings");
 
     app.get("/category", async (req, res) => {
       const query = {}
@@ -75,6 +76,27 @@ async function run() {
     //   res.send(category_Product);
     // });
 
+    // get data from bookings
+    app.get('/bookings', verifyJWT, async(req, res)=>{
+      const email = req.query.email
+      const decodedEmail =req.decoded.email;
+      if(email !== decodedEmail){
+        return res.status(403).send({message: 'forbidden access'})
+      }
+      console.log("token",req.headers.authorization)
+      const query ={email: email}
+      const bookings = await  bookingsCollection.find(query).toArray()
+      res.send(bookings)
+    })
+
+    // post data to database from modal
+    app.post('/bookings', async(req, res)=>{
+      const booking = req.body;
+      console.log(booking);
+      const result = await bookingsCollection.insertOne(booking)
+      res.send(result)
+    })
+
     // generate jwt
     app.get("/jwt", async (req, res) => {
       const email = req.query.email;
@@ -89,6 +111,13 @@ async function run() {
       console.log(user);
       res.send({ accessToken: "token" });
     });
+
+    // get category name
+    app.get('/categoryName', async(req, res)=>{
+      const query = {}
+      const result = await categoriesCollection.find(query).project({name: 1}).toArray()
+      res.send(result)
+    })
 
     // get all users
     app.get("/users", async (req, res) => {
@@ -135,6 +164,13 @@ async function run() {
       );
       res.send(result);
     });
+
+    // add products
+    app.post('/products', async(req, res)=>{
+      const product = req.body;
+      const result = await productsCollection.insertOne(product);
+      res.send(result)
+    })
   } finally {
   }
 }
