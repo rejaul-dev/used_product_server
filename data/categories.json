@@ -1,0 +1,17 @@
+[
+  {
+    "category_id": "01",
+    "name": "Mac",
+    "image": "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg"
+  },
+  {
+    "category_id": "02",
+    "name": "Windows",
+    "image": "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg"
+  },
+  {
+    "category_id": "03",
+    "name": "Gaming",
+    "image": "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg"
+  }
+]
