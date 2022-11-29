@@ -40,53 +40,40 @@ async function run() {
     const categoriesCollection = client
       .db("resellUsedLaptop")
       .collection("categories");
-    const usersCollection = client.db("resellUsedLaptop").collection("users");
     const productsCollection = client
       .db("resellUsedLaptop")
       .collection("products");
+    const usersCollection = client.db("resellUsedLaptop").collection("users");
 
-    // save user email and generate jwt
-    // app.put("/user/:email", async (req, res) => {
-    //   const email = req.params.email;
-    //   const user = req.body;
-    //   const filter = { email: email };
-    //   const options = { upsert: true };
-    //   const updatedDoc = {
-    //     $set: user,
-    //   };
-    //   const result = await usersCollection.updateOne(
-    //     filter,
-    //     updatedDoc,
-    //     options
-    //   );
+    app.get("/category", async (req, res) => {
+      const query = {}
+      const result = await categoriesCollection.find(query).toArray()
+      console.log(result)
+      res.send(result)
+    });
 
-    //   const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-    //     expiresIn: "1d",
-    //   });
-    //   console.log(token);
-    //   res.send({ result, token });
+    app.get("/product-categories/:name", async (req, res) => {
+      const name = req.params.name;
+      console.log(name);
+      const query = { name: name };
+      const option = await productsCollection.find(query).toArray();
+      console.log(option);
+      res.send(option);
+    });
+
+
+    app.get('/products', async(req, res)=>{
+      const query ={}
+      const products = await productsCollection.find(query).toArray()
+      res.send(products)
+    })
+
+    // app.get("/category/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const cursor = productsCollection.filter((p) => p.category_id === id);
+    //   const category_Product = await cursor.toArray();
+    //   res.send(category_Product);
     // });
-
-    app.get("/product-categories", async (req, res) => {
-      const query = {};
-      const categories = await categoriesCollection.find(query).toArray();
-      res.send(categories);
-    });
-
-    app.get("/product/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: ObjectId(id) };
-      const cursor = productsCollection.find(query);
-      const selectedProduct = await cursor.toArray();
-      res.send(selectedProduct);
-    });
-
-    app.get("/category/:id", async (req, res) => {
-      const id = req.params.id;
-      const cursor = productsCollection.filter((p) => p.category_id === id);
-      const category_Product = await cursor.toArray();
-      res.send(category_Product);
-    });
 
     // generate jwt
     app.get("/jwt", async (req, res) => {
@@ -104,21 +91,19 @@ async function run() {
     });
 
     // get all users
-
     app.get("/users", async (req, res) => {
       const query = {};
       const users = await usersCollection.find(query).toArray();
       res.send(users);
     });
 
-      // checking if the user is admin
-      app.get("/users/admin/:email", async (req, res) => {
-        const email = req.params.email;
-        const query = { email };
-        const user = await usersCollection.findOne(query);
-        res.send({ isAdmin: user?.role === "admin" });
-      });
-  
+    // checking admin
+    app.get("/users/admin/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email };
+      const user = await usersCollection.findOne(query);
+      res.send({ isAdmin: user?.role === "admin" });
+    });
 
     // save user to database
     app.post("/users", async (req, res) => {

@@ -1,69 +1,80 @@
 [
   {
     "_id": "0282e0e58a5c404fbd15261f11c2ab6a",
-    "category_id": "01",
-    "name": "MacBook air",
+    "name": "Mac",
+    "productName": "MacBook Air M1",
+    "sellerName": "Habul",
+    "Condition": "Good",
     "image": "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg",
     "location": "Kuala Lumpur",
     "resale_price": "3000",
     "original_price": "4000",
     "years_of_use": "2",
-    "date": "28 july 2022"
+    "postedTime": "28 july 2022"
   },
   {
     "_id": "0282e0e58a5c404fbd15261f11c2ab6a",
-    "category_id": "01",
-    "name": "MacBook Pro 14",
+    "name": "Mac",
+    "productName": "MacBook Pro M1",
+    "sellerName": "Habul",
+    "Condition": "Good",
     "image": "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg",
     "location": "Kuala Lumpur",
     "resale_price": "3000",
     "original_price": "4000",
     "years_of_use": "2",
-    "date": "28 july 2022"
+    "postedTime": "28 july 2022"
   },
   {
     "_id": "0282e0e58a5c404fbd15261f11c2ab6a",
-    "category_id": "02",
-    "name": "Dell Xps 14",
+    "name": "Windows",
+    "productName": "Dell Xps 15",
+    "sellerName": "Habul",
+    "Condition": "Good",
     "image": "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg",
     "location": "Kuala Lumpur",
     "resale_price": "3000",
     "original_price": "4000",
     "years_of_use": "2",
-    "date": "28 july 2022"
+    "postedTime": "28 july 2022"
   },
   {
     "_id": "0282e0e58a5c404fbd15261f11c2ab6a",
-    "category_id": "02",
-    "name": "Dell Xps 15",
+    "name": "Windows",
+    "productName": "Dell Xps 13",
+    "sellerName": "Habul",
+    "Condition": "Good",
     "image": "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg",
     "location": "Kuala Lumpur",
     "resale_price": "3000",
     "original_price": "4000",
     "years_of_use": "2",
-    "date": "28 july 2022"
+    "postedTime": "28 july 2022"
   },
   {
     "_id": "0282e0e58a5c404fbd15261f11c2ab6a",
-    "category_id": "03",
-    "name": "Razer Blade 14",
+    "name": "Gaming",
+    "productName": "Razer Blade 14",
+    "sellerName": "Habul",
+    "Condition": "Good",
     "image": "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg",
     "location": "Kuala Lumpur",
     "resale_price": "3000",
     "original_price": "4000",
     "years_of_use": "2",
-    "date": "28 july 2022"
+    "postedTime": "28 july 2022"
   },
   {
     "_id": "0282e0e58a5c404fbd15261f11c2ab6a",
-    "category_id": "03",
-    "name": "Razer Blade 15",
+    "name": "Gaming",
+    "productName": "Razer Blade 15",
+    "sellerName": "Habul",
+    "Condition": "Good",
     "image": "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg",
     "location": "Kuala Lumpur",
     "resale_price": "3000",
     "original_price": "4000",
     "years_of_use": "2",
-    "date": "28 july 2022"
+    "postedTime": "28 july 2022"
   }
-  
 ]
