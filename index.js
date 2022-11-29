@@ -35,7 +35,6 @@ function verifyJWT(req, res, next) {
   });
 }
 
-
 async function run() {
   try {
     const categoriesCollection = client
@@ -74,28 +73,42 @@ async function run() {
       res.send(categories);
     });
 
-    app.get('/product/:id', async (req, res) => {
+    app.get("/product/:id", async (req, res) => {
       const id = req.params.id;
-      const query = {_id: ObjectId(id)}
-      const cursor = productsCollection.find(query );
-      const selectedProduct = await cursor.toArray()
+      const query = { _id: ObjectId(id) };
+      const cursor = productsCollection.find(query);
+      const selectedProduct = await cursor.toArray();
       res.send(selectedProduct);
-  });
-  
-    app.get('/category/:id', async (req, res) => {
+    });
+
+    app.get("/category/:id", async (req, res) => {
       const id = req.params.id;
-      const cursor = productsCollection.filter(p=>p.category_id === id );
-      const category_Product = await cursor.toArray()
+      const cursor = productsCollection.filter((p) => p.category_id === id);
+      const category_Product = await cursor.toArray();
       res.send(category_Product);
-  });
+    });
 
-  // save user to database
-  app.post('/users', async(req, res)=>{
-    const user = req.body;
-    const result = await usersCollection.insertOne(user)
-    res.send(result)
-  })
+    // generate jwt
+    app.get("/jwt", async (req, res) => {
+      const email = req.query.email;
+      const query = { email: email };
+      const user = await usersCollection.findOne(query);
+      if (user) {
+        const token = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
+          expiresIn: "1d",
+        });
+        return res.status(403).send({ accessToken: token });
+      }
+      console.log(user);
+      res.send({ accessToken: "token" });
+    });
 
+    // save user to database
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const result = await usersCollection.insertOne(user);
+      res.send(result);
+    });
   } finally {
   }
 }
