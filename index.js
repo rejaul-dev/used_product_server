@@ -48,6 +48,9 @@ async function run() {
     const bookingsCollection = client
       .db("resellUsedLaptop")
       .collection("bookings");
+    const paymentsCollection = client
+      .db("resellUsedLaptop")
+      .collection("payments");
 
     app.get("/category", async (req, res) => {
       const query = {};
@@ -79,7 +82,7 @@ async function run() {
     });
 
     // get data from bookings
-    app.get("/bookings",verifyJWT, async (req, res) => {
+    app.get("/bookings", async (req, res) => {
       const email = req.query.email;
       // const decodedEmail =req.decoded.email;
       // if(email !== decodedEmail){
@@ -115,20 +118,20 @@ async function run() {
       });
     });
 
-    // app.post("/payments", async (req, res) => {
-    //   const payment = req.body;
-    //   const result = await paymentsCollection.insertOne(payment);
-    //   const id = payment.bookingId;
-    //   const filter = {_id: ObjectId(id)}
-    //   const updatedDoc ={
-    //     $set:{
-    //       paid: true,
-    //       transactionId: payment.transactionId
-    //     }
-    //   }
-    //   const updatedResult = await bookingsCollection.updateOne(filter, updatedDoc)
-    //   res.send(result);
-    // });
+    app.post("/payments", async (req, res) => {
+      const payment = req.body;
+      const result = await paymentsCollection.insertOne(payment);
+      const id = payment.bookingId;
+      const filter = {_id: ObjectId(id)}
+      const updatedDoc ={
+        $set:{
+          paid: true,
+          transactionId: payment.transactionId
+        }
+      }
+      const updatedResult = await bookingsCollection.updateOne(filter, updatedDoc)
+      res.send(updatedResult);
+    });
 
 
     // generate jwt
@@ -164,7 +167,7 @@ async function run() {
     });
 
     // checking admin
-    app.get("/users/admin/:email",verifyJWT, async (req, res) => {
+    app.get("/users/admin/:email", async (req, res) => {
       const email = req.params.email;
       const query = { email };
       const user = await usersCollection.findOne(query);
@@ -179,7 +182,7 @@ async function run() {
     });
 
     // update admin
-    app.put("/users/admin/:id",verifyJWT, async (req, res) => {
+    app.put("/users/admin/:id", async (req, res) => {
       const decodedEmail = req.decoded.email;
       const query = { email: decodedEmail };
       const user = await usersCollection.findOne(query);
